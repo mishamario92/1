@@ -246,9 +246,7 @@ if True:
         "Пацаны, даже не вздумайте вестись, это самый обычный лохотрон",
         ","
     ]
-# ... (массивы emoji, flood, nicknames, Threads, answers_1...17 остаются прежними) ...
 
-# Основная логика с исправлениями
 NUMBER = int(input("напши номер: "))
 divisor = NUMBER
 divisor += 1
@@ -262,11 +260,9 @@ Thread = Threads[qaz]
 wsx = 0
 code = f"{qaz:02d}"
 
-# Логика изменения заголовка (упрощена)
 for _ in Thread:
     wsx = (wsx % 4) + 1
 
-# 4. Исправлено: and -> or
 if wsx == 1 or wsx == 4:
     Thread += "."
 elif wsx == 2 or wsx == 3:
@@ -303,7 +299,6 @@ def find_max_number(base):
     return max_found
 
 
-# --- Твой блок генерации Thread и функция find_max_number остаются выше ---
 
 result = find_max_number(divisor)
 
@@ -311,18 +306,14 @@ if result is not None:
     for i in str(result):
         wsx = (wsx % 4) + 1
 
-        # 1. Номер темы и название строки
         divider_num = max(1, round(NUMBER / 17))
         divider_str = "answers_" + str(divider_num)
 
-        # 2. Индекс из математического числа
         digit_i = int(i)
 
-        # Получаем символ из имени строки (для твоей уникальной математики)
         char_from_name = divider_str[digit_i % len(divider_str)]
         phrase_index = ord(char_from_name)
 
-        # 3. Привязка к твоим спискам ответов
         if divider_num == 14:
             current_answers_list = answers_14
         elif divider_num == 15:
@@ -334,24 +325,19 @@ if result is not None:
         else:
             current_answers_list = answers_14
 
-        # Достаем целую фразу
         edc = current_answers_list[phrase_index % len(current_answers_list)]
 
-        # 4. ИСПРАВЛЕНО: Проверяем запятую внутри самой фразы edc
         if "," in edc:
             edc = flood[divider_num % len(flood)]
         elif wsx == 3:
-            # ИСПРАВЛЕНО: Берем только настоящие текстовые эмодзи из списка
-            # Игнорируем строки вроде "1", "228", если они попались
+
             chosen_emoji = emoji[divider_num % len(emoji)]
             if chosen_emoji.isdigit() or chosen_emoji in ["ПРИВТЕ", "ОРЕТ", "ЛОЛ", "КЕК"]:
-                # Если выпал текст или цифра, берем классический смайлик с конца списка
                 chosen_emoji = " :-D"
             edc += " " + chosen_emoji
         elif wsx == 4:
             edc = edc.upper()
 
-        # 5. Вывод никнейма и итоговой фразы
         current_nickname = nicknames[digit_i % len(nicknames)]
         print(current_nickname)
         print(edc)
